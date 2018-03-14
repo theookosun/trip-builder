@@ -16,5 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/', function(){
+    return view('airport_list');
+});
 Route::get('/home', 'HomeController@index')->name('home');

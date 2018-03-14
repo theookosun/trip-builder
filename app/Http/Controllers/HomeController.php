@@ -23,6 +23,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+             $book = json_decode($json, true);
+            
+            function sortAlphabetically($a, $b){
+                return strcmp($a['name'], $b['name']);
+              }
+                usort($book, 'sortAlphabetically');
+                foreach ($book as $key ) {
+                    echo '<br>'.$key['name']. '<br/>';
+                }
         return view('home');
     }
 }

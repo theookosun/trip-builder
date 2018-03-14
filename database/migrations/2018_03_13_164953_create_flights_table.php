@@ -15,6 +15,11 @@ class CreateFlightsTable extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('flight_number');
+            $table->integer('departureAirport_id');
+            $table->integer('arrivalAirport_id');
+            $table->datetime('departure_time');
+            $table->datetime('arrival_time');
             $table->timestamps();
         });
     }
