@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use App\Flight;
 use App\Airport;
+
 class FlightService {
     protected $supportedIncludes = [
         'arrivalAirport' => 'arrival',
@@ -17,7 +18,6 @@ class FlightService {
     ];
     protected $rules = [
         'flightNumber' => 'required',
-        'status' => 'required|flightstatus',
         'arrival.datetime' => 'required|date',
         'arrival.iataCode' => 'required',
         'departure.datetime' => 'required|date',
@@ -38,6 +38,8 @@ class FlightService {
         return $this->filterFlights($flights, $withKeys);
         
     }
+
+
     public function createFlight($req) {
         $arrivalAirport = $req->input('arrival.iataCode');
         $departureAirport = $req->input('departure.iataCode');
@@ -48,7 +50,7 @@ class FlightService {
         }
         $flight = new Flight();
         $flight->flightNumber = $req->input('flightNumber');
-        $flight->status = $req->input('status');
+      
         $flight->arrivalAirport_id = $codes[$arrivalAirport];
         $flight->arrivalDateTime = $req->input('arrival.datetime');
         $flight->depatureAirport_id = $codes[$departureAirport];
@@ -56,6 +58,9 @@ class FlightService {
         $flight->save();
         return $this->filterFlights([$flight]);
     }
+
+
+
     public function updateFlight($req, $flightNumber) {
         $flight = Flight::where('flightNumber', $flightNumber)->firstOrFail();
         $arrivalAirport = $req->input('arrival.iataCode');
@@ -75,8 +80,8 @@ class FlightService {
         $flight->save();
         return $this->filterFlights([$flight]);
     }
-    public function deleteFlight($flightNumber) {
-        $flight = Flight::where('flightNumber', $flightNumber)->firstOrFail();
+    public function deleteFlight($id) {
+        $flight = Flight::where('id', $id)->firstOrFail();
         
         $flight->delete();
     }
@@ -84,8 +89,8 @@ class FlightService {
         $data = [];
         foreach ($flights as $flight) {
             $entry = [
-                'flightNumber' => $flight->flightNumber,
-                'status' => $flight->status,
+                'flight_number' => $flight->flightNumber,
+                
                 'href' => route('flights.show', ['id' => $flight->flightNumber])
             ];
             if (in_array('arrivalAirport', $keys)) {

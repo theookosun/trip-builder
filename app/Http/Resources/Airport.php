@@ -24,4 +24,10 @@ class Airport extends JsonResource
             'state'=>$this->state
         ];
     }
+    public function with($request) {
+        return [
+            'version' => '1.0.0',
+            'author_url' => url('http://theookosun.com')
+        ];
+    }
 }

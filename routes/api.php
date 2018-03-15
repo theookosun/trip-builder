@@ -29,18 +29,37 @@ Route::resource('/v1/flights', v1\FlightController::class, [
     'except' => ['create', 'edit']
 ]);
 
-// List articles
-Route::get('articles', 'ArticleController@index');
 
-// List single article
-Route::get('article/{id}', 'ArticleController@show');
+    // List airports
+    Route::get('/airports', 'AirportController@index');
+
+// List single airport
+    Route::get('airport/{id}', 'AirportController@show');
+
+    // Update airport
+    Route::put('airport', 'AirportController@store');
+
+    // Create new airort
+    Route::post('airport', 'AirportController@store');  
+
+    //delete a single airport
+    Route::delete('airport/{id}', 'AirportController@destroy');
+
+
+
+
+
+    // List airports
+ Route::get('flights', 'FlightController@index');
 
 // Create new flight
-Route::post('article', 'ArticleController@store');
+Route::post('flight', 'FlightController@store');
 
 // Update flight
-Route::put('article', 'ArticleController@store');
+Route::put('flight', 'FlightController@store');
 
-// Delete article
-Route::delete('article/{id}', 'ArticleController@destroy');
+// Removeflight from itinary
+Route::delete('flight/{id}', 'FlightController@destroy');
+
+
 

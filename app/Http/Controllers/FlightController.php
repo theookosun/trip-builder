@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Flight;
 use DB;
 use App\Airport;
+use App\FlightServiceFunctions;
+use App\Http\Resources\Flight as FlightResource;
+use App\Http\Requests;
 
 use Illuminate\Http\Request;
 
@@ -14,19 +17,29 @@ class FlightController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        //
+        // Get flight list from DB
+        $flight = Flight::orderBy('flight_number', 'asc')->paginate(20);
+        // Return collection of airports as a resource
+        return FlightResource::collection($flight);        
     }
-    public function flightsearch (Request $request){
-        $term = $request->input('departure');
-        if(!empty($term)){
-           // $flight =  Airport::where('country', 'LIKE', $term)->get();
-           $todos = Airport::with('flight')->where('country', $term)->first();
-           $todos->paginate(5);
-          // echo $todos;
 
-          return view('flights.flights', ['todos' => $todos]);
+    //list available flights for a particular destination
+
+    public function flightsearch (Request $request){
+            //collect user input 
+             $departure = $request->input('departure');
+            if(!empty($departure)){
+            //Search query
+           $flight = Airport::with('flight')->where('country', $term)->first();
+           //return the flight details as json file
+           return response()->json($todos);
+          // or by doing this
+           return FlightResource::collection($flight);
+          //Tested in the View below
+           return view('flights.flights', ['todos' => $todos]);
          
 }
     }
@@ -49,7 +62,28 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $flight = $request->isMethod('put') ? Flight::findOrFail($request->flight_id) : new Flight;
+
+        $article->airport_id = $request->input('airport_id');
+        $article->title = $request->input('title');
+        $article->body = $request->input('body');
+
+        if($article->save()) {
+            return new ArticleResource($article);
+        }    
+    }
+    public function addFlights(Request $request)
+    {
+        //adding a flight to your trip
+        $this->flights->validate($request->all());
+        try {
+            $flight = $this->flights->createFlight($request);
+            return response()->json($flight, 201);
+        } catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+
+
     }
 
     /**
@@ -60,7 +94,10 @@ class FlightController extends Controller
      */
     public function show($id)
     {
-        //
+        $parameters = request()->input();
+        $parameters['flight_number'] = $id;
+        $data = $this->flights->getFlights($parameters);
+        return response()->json($data);
     }
 
     /**
@@ -83,8 +120,21 @@ class FlightController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->flights->validate($request->all());
+        
+        try {
+            $flight = $this->flights->updateFlight($request, $id);
+            return response()->json($flight, 200);
+        } 
+        catch (ModelNotFoundException $ex) {
+            throw $ex;
+        }
+        catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
+
+    /*
 
     /**
      * Remove the specified resource from storage.
@@ -92,8 +142,22 @@ class FlightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+     public function destroy($id)
     {
-        //
+        try {
+            $flight = Flight::findOrFail($id);
+
+        if($flight->delete()) {
+            return new FlightResource($flight);    
+            return response()->make('', 204);
+        } 
     }
+        catch (ModelNotFoundException $ex) {
+            throw $ex;
+        }
+        catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+   
 }

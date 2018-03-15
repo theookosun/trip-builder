@@ -3,7 +3,7 @@
     $json = '[
         {
              "name":"Shanhaiguan Airport",
-             "iata_code": "y",
+             "iata_code": "SAY",
              "country": "CN",
              "State": "Qinhuangdao",
              "Country": "CN-13" 
