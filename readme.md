@@ -3,6 +3,7 @@ Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 Prerequisites
+
 -A development server, PostMan or Any API Development Environment, Laravel 5.3 requires PHP 5.4 or greater to work efficiently.
 Here is a list of the packages installed:
 
