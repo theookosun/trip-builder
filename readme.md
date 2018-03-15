@@ -2,12 +2,13 @@ Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Prerequisites
+                                                        Prerequisites
 
 -A development server, PostMan or Any API Development Environment, Laravel 5.3 requires PHP 5.4 or greater to work efficiently.
 Here is a list of the packages installed:
 
 Laravel Passport
+
 Laravel Fractal-5
 
 
@@ -22,18 +23,23 @@ To easily start your project using this structure, just use composer
 composer create theookosun/laravel your_app_name
 
 -Setup your database server on your local machine or online server
+
 -Run a "composer install -g" in your terminal to download the dependencies
 
 -Import the database tables into your new database and configure it to match with your Server's details in the .env file  as shown below:
 
 DB_HOST=localhost;
+
 DB_DATABASE=trip-builder;
+
 DB_USERNAME=root;
+
 DB_PASSWORD=
 
 -Import The Schema class in the AppServiceProvider.php file and set Schema::defaultStringLength to 191 or greater to avoid the database string error when you migrate your database tables (Yet to be fixed in Laravel 5.4)
 
 Run Php artisan migrate 
+
 then php artisan passport:install
 
 -Create your blade views in the resource folder 
@@ -43,8 +49,9 @@ then php artisan passport:install
 Note: The API was built and tested on a local server. Direct API calls can not be made wihout re-configuring the development servers and database to contain real info in place of the dummy data.
 
 
-Usage 
+                                                      Usage 
 -The FlightSearch and Airport Functionalities are contained in the Controllers Folder  App\Http\Controller.
+
 The data passed at the end of the function calls have been converted to Json using Laravel's inbuilt (Resource::collection) and can be edited as you like by setting the fields in the App\Resources\AirportResource File. 
 
 For each controller there's an already setup route in routes/api.php file:
@@ -66,9 +73,11 @@ DELETE api/flight/{id} to remove flight from itinerary or list.
 Some Views(Front end Templates) have been created to test these functions.
 
 A Separate File for Routes
+
 All the API routes can be found in the routes/api.php file. This also follows the Laravel 5.4 convention.
 
-Built With
+                                                Built With
+
 PHP
 
 Laravel - The web framework used
@@ -81,18 +90,18 @@ Faker Library - Used to generate dummy data.
 
 
 
-Versioning
+                                                    Versioning
 1.0.0.1
 
-Authors
+                                                      Authors
 
 Theophilus Okosun
 
-License
+                                                      License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
-Acknowledgments
+                                                    Acknowledgments
 
 A free Website Template was gotten from (FreeHTML5.co) and edited to test the functionalities of the API and can be found in the Views Folder "Resources\Views"
 
