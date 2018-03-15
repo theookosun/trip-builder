@@ -12,11 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
-Route::get('/', function(){
-    return view('airport_list');
-});
+
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/addairports', 'AirportController@index');
+Route::get('/view_airports', 'AirportController@home');
+Route::post('/insert', 'AirportController@add');
+Route::post('/placesearch', 'FlightController@flightsearch');

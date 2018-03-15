@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Flight;
+use DB;
+use App\Airport;
 
 use Illuminate\Http\Request;
 
@@ -15,16 +18,28 @@ class FlightController extends Controller
     {
         //
     }
+    public function flightsearch (Request $request){
+        $term = $request->input('departure');
+        if(!empty($term)){
+           // $flight =  Airport::where('country', 'LIKE', $term)->get();
+           $todos = Airport::with('flight')->where('country', $term)->first();
+           $todos->paginate(5);
+          // echo $todos;
 
+          return view('flights.flights', ['todos' => $todos]);
+         
+}
+    }
+
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+   
+       
+   
 
     /**
      * Store a newly created resource in storage.
