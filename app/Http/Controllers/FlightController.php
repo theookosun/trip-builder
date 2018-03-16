@@ -33,13 +33,13 @@ class FlightController extends Controller
              $departure = $request->input('departure');
             if(!empty($departure)){
             //Search query
-           $flight = Airport::with('flight')->where('country', $term)->first();
+           $flightsrch= Airport::with('flight')->where('country', $term)->first();
            //return the flight details as json file
-           return response()->json($todos);
+           return response()->json($flightsrch);
           // or by doing this
-           return FlightResource::collection($flight);
+          return FlightResource::collection($flight);
           //Tested in the View below
-           return view('flights.flights', ['todos' => $todos]);
+           return view('flights.flights', ['flightsrch' => $flightsrch]);
          
 }
     }
@@ -64,12 +64,14 @@ class FlightController extends Controller
     {
         $flight = $request->isMethod('put') ? Flight::findOrFail($request->flight_id) : new Flight;
 
-        $article->airport_id = $request->input('airport_id');
-        $article->title = $request->input('title');
-        $article->body = $request->input('body');
+        $flight->airport_id = $request->input('airport_id');
+        $flight->flight_number = $request->input('flight_number');
+        $flight->arrivalAirport_id = $request->input('arrivalAirport_id');
+        $flight->arrival_time= $request->input('arrival_time');
+        $flight->departure_time = $request->input('departure_time');
 
-        if($article->save()) {
-            return new ArticleResource($article);
+        if($flight->save()) {
+            return new FlightResource($flight);
         }    
     }
     public function addFlights(Request $request)

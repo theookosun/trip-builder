@@ -1,3 +1,4 @@
+#trip-builder
 Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
@@ -24,7 +25,7 @@ composer create theookosun/laravel your_app_name
 -Import the database tables into your new database and configure it to match with your Server's details in the .env file  as shown below:
 
 DB_HOST=localhost
-DB_DATABASE=trip-builder
+DB_DATABASE=trip_builder
 DB_USERNAME=root
 DB_PASSWORD=
 
@@ -61,8 +62,8 @@ Built With
 PHP
 Laravel - The web framework used
 MySQL - Database Development System Used
-Fractal- For Handling Json Requests
 Faker Library - Used to generate dummy data.
+Transformers.
 
 Contributing
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.

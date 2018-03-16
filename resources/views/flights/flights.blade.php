@@ -27,17 +27,16 @@
                         </thead>
                                            
                          <tbody>
-                            @if (count($todos) > 0)
-                                @foreach ($todos->flight as $todo)
+                            @if (count($flightsrch) > 0)
+                                @foreach ($flightsrch->flight as $todo)
                         <tr>
-                          <th scope="row">{{$todo->flight_number}}</th>
-                            <td>{{$todo->airport->airport_name}}</td>
-                            <td>{{$todo->airport->iata_code}}</td>
-                            <td>{{$todo->airport->country}}</td>
-                            <td>{{$todo->airport->state}}</td>
-                            <td>{{$todo->departure_time}}</td>
-                            <td>{{$todo->arrival_time}}</td>
-                            <td style="font-size:3.2em;">${{ $todo->Price }}</td>
+                          <th scope="row">{{$flightsrch->flight_number}}</th>
+                            <td>{{$flightsrch->airport->airport_name}}</td>
+                            <td>{{$flightsrch->airport->iata_code}}</td>
+                            <td>{{$flightsrch->airport->country}}</td>
+                            <td>{{$flightsrch->airport->state}}</td>
+                            <td>{{$flightsrch->arrival_time}}</td>
+                            <td style="font-size:3.2em;">${{ $flightsrch->Price }}</td>
                             
 
                             <td>

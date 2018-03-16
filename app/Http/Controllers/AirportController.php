@@ -60,14 +60,14 @@ class AirportController extends Controller
          // Get airpotrt
          $airport = Airport::findOrFail($id);
 
-         // Return single article as a resource
+         // Return single airport as a Resource
          return new AirportResource($airport);
      }
     
      public function destroy($id)
     {
         // Get airport
-        $article = Airport::findOrFail($id);
+        $airport = Airport::findOrFail($id);
 
         if($airport->delete()) {
             return new AirportResource($airport);
